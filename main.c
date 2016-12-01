@@ -4,7 +4,6 @@
 
 typedef struct fichero {
 	char nombre[10];
-	int size;
 	int pista;
 } fichero;
 
@@ -18,9 +17,8 @@ int main(int argc, char const *argv[]) {
 	int bloque_final, bloque_inicial, cabeza, direccion, cabeza_pista;
 	float t_busqueda = 0, t_total = 0;
 //EMPIEZA LECTURA DE ARCHIVO.
-	archivo = fopen("discoC","r"); 		//Apertura del archivo que contiene los "archivos" a leer
-	bloques = fopen("bloques.txt", "w");//Apertura del archivo donde se almacenará el bloque donde empieza cada "archivo".
-	//Se lee el archivo con archivos y tamaños
+	archivo = fopen("discoC","r"); 		//Apertura del archivo que contiene los "archivos" a leer.
+	//Se lee el archivo con "archivos" y tamaños.
 	while (feof(archivo) == 0) {
 		bloques_aux[j] = bloque; 	//Se almacena en un arreglo cada bloque donde se haya empezado la escritura de un "archivo".
 		fscanf(archivo, "%s %d", nombre_tmp, &size_tmp); //Se lee del archivo el nombre y tamaño de cada "archivo".
@@ -48,10 +46,10 @@ int main(int argc, char const *argv[]) {
 	direccion = 1;
 
 	//Se pasa, en orden inverso, el arreglo de bloques de inicio de "archivo" a un archivo.
+	bloques = fopen("bloques.txt", "w");//Apertura del archivo donde se almacenará el bloque donde empieza cada "archivo".
 	for (j = 99; j >= 0; j--)
 		if (bloques_aux[j] != -1)
 			fprintf(bloques, "%d\n", bloques_aux[j]);
-	
 	fclose(archivo);
 	fclose(bloques);
 //EMPIEZA PLANIFICACIÓN DE DISCO.
